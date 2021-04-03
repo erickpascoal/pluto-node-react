@@ -14,6 +14,11 @@ export function Header({ onOpenNewTransactionModal }: HeaderProps) {
 
     const [dateMonth, setDateMonth] = useState(format(new Date(), 'yyyy-MM'));
 
+    function handleChangeDateMonth(value: string) {
+        setDateMonth(value);
+        loadTransactions(value);
+    }
+
     function handleAddMonth() {
         const newDate = addMonths(parseISO(dateMonth), 1);
         const dateFormated = format(newDate, 'yyyy-MM');
@@ -28,14 +33,13 @@ export function Header({ onOpenNewTransactionModal }: HeaderProps) {
         loadTransactions(dateFormated);
     }
 
-
     return (
         <Container>
             <Content>
                 <img src={logoImg} alt="pluto" />
                 <div>
                     <i className="fa fa-chevron-left" onClick={handleSubMonth}></i>
-                    <input type="month" value={dateMonth} onChange={(event) => setDateMonth(event.target.value)} />
+                    <input type="month" value={dateMonth} onChange={(event) => handleChangeDateMonth(event.target.value)} />
                     <i className="fa fa-chevron-right" onClick={handleAddMonth}></i>
                 </div>
                 <button onClick={onOpenNewTransactionModal}>Nova transação</button>
