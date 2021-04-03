@@ -1,9 +1,18 @@
+import { Transaction } from "../../hooks/useTransactions/types/Transacion";
 import { useTransaction } from "../../hooks/useTransactions";
 import { Container } from "./styles";
 
 export function TransactionsTable() {
 
-    const { transactions } = useTransaction();
+    const { transactions, deleteTransaction } = useTransaction();
+
+    async function handleDeleteTransaction(transaction: Transaction) {
+        const confirmValue = window.confirm(`Deseja mesmo deletar a transação "${transaction.title}" ?`);
+        if (confirmValue) {
+            await deleteTransaction(transaction.id);
+            //TODO: Adicionar mensagem de sucesso
+        }
+    }
 
     return (
         <Container>
@@ -14,6 +23,7 @@ export function TransactionsTable() {
                         <th>Valor</th>
                         <th>Categoria</th>
                         <th>Data</th>
+                        <th>Ações</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -21,20 +31,14 @@ export function TransactionsTable() {
                         <tr key={transaction.id}>
                             <td>{transaction.title}</td>
                             <td className={transaction.type}>
-                                {transaction.type == 'withdraw' && <>-</>}
-                                {
-                                    new Intl.NumberFormat('pt-BR', {
-                                        style: 'currency',
-                                        currency: 'BRL'
-                                    }).format(transaction.amount)
-                                }</td>
+                                {transaction.type === 'withdraw' && <>-</>}
+                                {transaction.amountStr}</td>
                             <td>{transaction.category}</td>
+                            <td> {transaction.datePaymentStr}</td>
                             <td>
-                                {
-                                    new Intl.DateTimeFormat('pt-BR').format(
-                                        new Date(transaction.datePayment)
-                                    )
-                                }
+                                <button onClick={() => handleDeleteTransaction(transaction)}>
+                                    <i className="fa fa-trash"></i>
+                                </button>
                             </td>
                         </tr>
                     ))}

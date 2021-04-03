@@ -27,8 +27,6 @@ export function NewTransactionModal({ isOpen, onRequestClose }: NewTransactionMo
     const [date, setDate] = useState(format(new Date(), 'yyyy-MM-dd'));
     const [installment, setInstallment] = useState(1);
 
-    const minDate = format(new Date().setDate(1), 'yyyy-MM-dd')
-
     async function handleCreateNewTransaction(event: FormEvent) {
         event.preventDefault();
 
@@ -77,6 +75,12 @@ export function NewTransactionModal({ isOpen, onRequestClose }: NewTransactionMo
                     onChange={(event) => setAmount(Number(event.target.value))}
                 />
 
+                <input
+                    placeholder="Parcelas"
+                    type="number"
+                    value={installment}
+                    onChange={(event) => setInstallment(Number(event.target.value))}
+                />
 
                 <input
                     placeholder="Categoria"
@@ -86,18 +90,9 @@ export function NewTransactionModal({ isOpen, onRequestClose }: NewTransactionMo
                 <input
                     placeholder="Data"
                     type="date"
-                    min={minDate}
                     value={date}
                     onChange={(event) => setDate(event.target.value)}
                 />
-
-                <input
-                    placeholder="Parcelas"
-                    type="number"
-                    value={installment}
-                    onChange={(event) => setInstallment(Number(event.target.value))}
-                />
-
 
                 <TransactionTypeContainer>
                     <RadioBox

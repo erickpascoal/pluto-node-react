@@ -34,12 +34,12 @@ export const Count = styled.div<CountProps>`
 		line-height: 4.8rem;
 	}
 
-	${(props) => props.isPostive == true && css`
+	${(props) => props.isPostive === true && css`
 		background-color: var(--green);
 		color: #ffffff
 	`};
 
-	${(props) => props.isPostive == false && css`
+	${(props) => props.isPostive === false && css`
 		background-color: var(--red);
 		color: #ffffff
 	`};
