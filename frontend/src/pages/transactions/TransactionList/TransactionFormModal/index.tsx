@@ -1,10 +1,8 @@
 import { format } from 'date-fns';
 import { parseISO } from 'date-fns';
-import { FormEvent, useState } from 'react';
+import { useEffect, useState } from 'react';
 import Modal from 'react-modal';
 import closeImg from '../../../../assets/images/close.svg'
-import incomeImg from '../../../../assets/images/income.svg'
-import outcomeImg from '../../../../assets/images/outcome.svg'
 
 import { Form, TransactionTypeContainer, RadioBox } from './styles';
 import { useTransaction } from '../../../../hooks/useTransactions';
@@ -22,18 +20,12 @@ export function TransactionFormModal({ isOpen, onRequestClose }: TransactionForm
 
     const { createTransaction, dateSearch } = useTransaction();
 
-    const { register, handleSubmit, watch, formState: { errors } } = useForm();
+    const { register, handleSubmit, watch, formState: { errors }, reset } = useForm();
 
-    // const [type, setType] = useState('deposit');
-    // const [date, setDate] = useState(format(new Date(), 'yyyy-MM-dd'));
-    // const [installment, setInstallment] = useState(1);
+    const [type, setType] = useState('deposit');
 
-    async function onSubmit({ title, amount, type, category, date, installment }: any) {
-        // event.preventDefault();
+    async function onSubmit({ title, amount, category, date, installment }: any) {
 
-        console.log('title, ', title);
-
-        return;
         await createTransaction({
             title,
             amount,
@@ -43,11 +35,11 @@ export function TransactionFormModal({ isOpen, onRequestClose }: TransactionForm
             installment
         });
 
-        // clearForm();
         handeCloseModal();
     }
 
     function handeCloseModal() {
+        reset();
         onRequestClose();
     }
 
@@ -64,6 +56,30 @@ export function TransactionFormModal({ isOpen, onRequestClose }: TransactionForm
 
             <Form onSubmit={handleSubmit(onSubmit)} >
                 <h2>Cadastrar Transação</h2>
+
+                <TransactionTypeContainer>
+                    <RadioBox
+                        className="deposit"
+                        type="button"
+                        onClick={() => setType('deposit')}
+                        isActive={type === 'deposit'}
+                        activeColor="green"
+                    >
+                        <i className="fa fa-arrow-circle-o-up"></i>
+                        <span>Entrada</span>
+                    </RadioBox>
+
+                    <RadioBox
+                        className="withdraw"
+                        type="button"
+                        onClick={() => setType('withdraw')}
+                        isActive={type === 'withdraw'}
+                        activeColor="red"
+                    >
+                        <i className="fa fa-arrow-circle-o-down"></i>
+                        <span>Saída</span>
+                    </RadioBox>
+                </TransactionTypeContainer>
 
                 <Input
                     label="Título"
@@ -101,31 +117,6 @@ export function TransactionFormModal({ isOpen, onRequestClose }: TransactionForm
                         register={register('date', { required: true })}
                     />
                 </div>
-                {/* 
-
-
-                {/* 
-                <TransactionTypeContainer>
-                    <RadioBox
-                        type="button"
-                        onClick={() => setType('deposit')}
-                        isActive={type === 'deposit'}
-                        activeColor="green"
-                    >
-                        <img src={incomeImg} alt="Entrada" />
-                        <span>Entrada</span>
-                    </RadioBox>
-
-                    <RadioBox
-                        type="button"
-                        onClick={() => setType('withdraw')}
-                        isActive={type === 'withdraw'}
-                        activeColor="red"
-                    >
-                        <img src={outcomeImg} alt="Saída" />
-                        <span>Saída</span>
-                    </RadioBox>
-                </TransactionTypeContainer> */}
 
                 <button type="submit"> Cadastrar</button>
             </Form>

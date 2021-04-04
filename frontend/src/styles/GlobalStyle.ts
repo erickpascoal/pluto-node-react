@@ -113,7 +113,6 @@ export const GlobalStyle = createGlobalStyle`
         }
     }
 
-
     .row {
         display: flex;
     }

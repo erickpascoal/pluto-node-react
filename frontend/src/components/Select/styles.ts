@@ -12,10 +12,10 @@ export const Container = styled.div<ContainerProps>`
     color: #ffffff;
     margin-bottom: 2px;
     font-weight: 500;
-    ${props => props.isErro && css`color: var(--red)`}
+    ${props => props.isErro && css`color: var(--red) `}
   }
 
-  input {
+  select {
     width: 100%;    
     border-radius: 0.4rem;
     padding: 0 2.4rem;
@@ -26,9 +26,7 @@ export const Container = styled.div<ContainerProps>`
     font-size: 1.6rem;
 
     &:focus {
-      border-style: solid;
-      border-width: 1px;
-      border-color: #8257e5;
+      border: solid 1px #8257e5;
       ${props => props.isErro && css`border-color: var(--red); `}
     }
     

@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import { darken, transparentize } from 'polished'
 
 export const Form = styled.form`
@@ -44,20 +44,11 @@ interface RadioBoxProps {
   activeColor: 'green' | 'red';
 }
 
-const colors = {
-  green: '#33CC95',
-  red: '#e52e4d'
-}
-
 export const RadioBox = styled.button<RadioBoxProps>`
     height: 6.4rem;
-    border: 0;
+    border: 1px solid var(--gray-dark) ;
     border-radius: 0.4rem;
-
     background: var(--blue-medium);
-
-    background: ${(props) => props.isActive
-    && transparentize(0.2, colors[props.activeColor])};
 
     display: flex;
     justify-content: center;
@@ -65,13 +56,45 @@ export const RadioBox = styled.button<RadioBoxProps>`
 
     transition: border-color 0.2s;
 
-    &:hover {
-        border-color: ${darken(0.1, '#d7d7d7')}
+    i {
+        font-size: 2.4rem;
+        color: #fff;
     }
 
-    img {
-        height: 20px;
-        width: 20px;
+    &.deposit {
+      i {
+        color: var(--green)
+      }
+     }
+
+     &.withdraw {
+      i {
+        color: var(--red)
+      }
+     }
+
+
+    ${(props) => props.isActive
+    && css`
+     &.deposit {
+      background: var(--green);
+
+      i {
+        color: #fff;
+      }
+     }
+
+     &.withdraw {
+      background: var(--red);
+
+      i {
+        color: #fff;
+      }
+     }
+    `}
+
+    &:hover {
+        border-color: ${darken(0.1, '#d7d7d7')}
     }
 
     span {
