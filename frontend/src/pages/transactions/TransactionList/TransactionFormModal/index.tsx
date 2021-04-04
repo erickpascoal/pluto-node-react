@@ -2,21 +2,21 @@ import { format } from 'date-fns';
 import { parseISO } from 'date-fns';
 import { FormEvent, useState } from 'react';
 import Modal from 'react-modal';
-import closeImg from '../../assets/images/close.svg'
-import incomeImg from '../../assets/images/income.svg'
-import outcomeImg from '../../assets/images/outcome.svg'
-import { useTransaction } from '../../hooks/useTransactions';
+import closeImg from '../../../../assets/images/close.svg'
+import incomeImg from '../../../../assets/images/income.svg'
+import outcomeImg from '../../../../assets/images/outcome.svg'
 
 import { Form, TransactionTypeContainer, RadioBox } from './styles';
+import { useTransaction } from '../../../../hooks/useTransactions';
 
-interface NewTransactionModalProps {
+interface TransactionFormModalProps {
     isOpen: boolean;
     onRequestClose: () => void;
 }
 
 Modal.setAppElement('#root');
 
-export function NewTransactionModal({ isOpen, onRequestClose }: NewTransactionModalProps) {
+export function TransactionFormModal({ isOpen, onRequestClose }: TransactionFormModalProps) {
 
     const { createTransaction } = useTransaction();
 

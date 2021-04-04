@@ -1,6 +1,6 @@
-import { Transaction } from "../../hooks/useTransactions/types/Transacion";
-import { useTransaction } from "../../hooks/useTransactions";
-import { Container } from "./styles";
+import { Transaction } from "../../../../hooks/useTransactions/types/Transacion";
+import { useTransaction } from "../../../../hooks/useTransactions";
+import { Container, Filter } from "./styles";
 
 export function TransactionsTable() {
 
@@ -16,16 +16,15 @@ export function TransactionsTable() {
 
     return (
         <Container>
+            {transactions.length > 0 &&
+                <Filter>
+                    <li className="active">Todos</li>
+                    <li>Gasto</li>
+                    <li>Recebido</li>
+                </Filter>
+
+            }
             <table>
-                <thead>
-                    <tr>
-                        <th>Título</th>
-                        <th>Valor</th>
-                        <th>Categoria</th>
-                        <th>Data</th>
-                        <th>Ações</th>
-                    </tr>
-                </thead>
                 <tbody>
                     {transactions.map(transaction => (
                         <tr key={transaction.id}>
@@ -36,7 +35,10 @@ export function TransactionsTable() {
                             <td>{transaction.category}</td>
                             <td> {transaction.datePaymentStr}</td>
                             <td>
-                                <button onClick={() => handleDeleteTransaction(transaction)}>
+                                <button className="edit" title="Editar">
+                                    <i className="fa fa-pencil"></i>
+                                </button>
+                                <button className="delete" title="Deletar" onClick={() => handleDeleteTransaction(transaction)}>
                                     <i className="fa fa-trash"></i>
                                 </button>
                             </td>

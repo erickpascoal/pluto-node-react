@@ -20,6 +20,11 @@ export const GlobalStyle = createGlobalStyle`
         margin: 0;
         padding: 0;
         box-sizing: border-box;
+        outline: none;
+    }
+
+    ul {
+        list-style: none;
     }
 
     html {
@@ -37,7 +42,7 @@ export const GlobalStyle = createGlobalStyle`
     }
 
     body {
-        background: var(--background);
+        background: radial-gradient(46.41% 73.99% at 46.63% 48.05%, #20135C 0%, #140739 92.82%);
         font-size: 1.6rem
     }
 

@@ -1,11 +1,11 @@
-import incomeImg from '../../assets/images/income.svg'
-import outcomeImg from '../../assets/images/outcome.svg'
-import totalImg from '../../assets/images/total.svg'
-import { useTransaction } from "../../hooks/useTransactions";
+import incomeImg from '../../../../assets/images/income.svg'
+import outcomeImg from '../../../../assets/images/outcome.svg'
+import totalImg from '../../../../assets/images/total.svg'
+import { useTransaction } from "../../../../hooks/useTransactions";
 
 import { Container, Count } from "./styles";
 
-export function Summary() {
+export function TransactionSummary() {
 
     const { transactions } = useTransaction();
 
