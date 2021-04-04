@@ -4,7 +4,8 @@ import { TransactionCreate } from "./TransactionCreate";
 export interface TransactionContextData {
     transactions: Transaction[];
     dateSearch: Date;
-    loadTransactions: (monthDate: string) => Promise<void>;
+    typeSearch: string | undefined,
+    loadTransactions: (date: Date, type?: string) => Promise<void>;
     createTransaction: (transaction: TransactionCreate) => Promise<void>;
     deleteTransaction: (transactionId: number) => Promise<void>;
 }

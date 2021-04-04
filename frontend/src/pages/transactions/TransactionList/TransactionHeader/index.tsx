@@ -17,21 +17,21 @@ export function TransactionHeader({ onOpenTransactionFormModal }: TransactionHea
 
     function handleChangeDateMonth(value: string) {
         setDateMonth(value);
-        loadTransactions(value);
+        loadTransactions(new Date(value));
     }
 
     function handleAddMonth() {
         const newDate = addMonths(parseISO(dateMonth), 1);
         const dateFormated = format(newDate, 'yyyy-MM');
         setDateMonth(dateFormated);
-        loadTransactions(dateFormated);
+        loadTransactions(newDate);
     }
 
     function handleSubMonth() {
         const newDate = subMonths(parseISO(dateMonth), 1);
         const dateFormated = format(newDate, 'yyyy-MM');
         setDateMonth(dateFormated);
-        loadTransactions(dateFormated);
+        loadTransactions(newDate);
     }
 
     return (

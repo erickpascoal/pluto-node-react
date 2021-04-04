@@ -34,10 +34,10 @@ export const Container = styled.div`
 
 export const Calendar = styled.div`
 	background-color: #32395E;
-	padding: 0 1.6rem; 
 	border-radius: 0.8rem;
 
 	button {
+		padding: 0 1.6rem; 
 		background-color: #32395E;
 		color: #fff;
 		border: 0;
@@ -46,7 +46,7 @@ export const Calendar = styled.div`
 	}
 
 	input {
-		padding: 0.8rem 2.4rem;
+		padding: 0.8rem;
 		color: #fff;
 		background-color: #32395E;
 		border: 0;

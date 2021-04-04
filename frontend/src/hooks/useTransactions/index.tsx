@@ -1,6 +1,4 @@
-import { format } from 'date-fns';
-import { parseISO } from 'date-fns/esm';
-import { createContext, ReactNode, useContext, useEffect, useState } from 'react';
+import { createContext, ReactNode, useCallback, useContext, useEffect, useState } from 'react';
 import { api } from '../../services/api';
 import { Transaction } from './types/Transacion';
 import { TransactionContextData } from './types/TransactionContextData';
@@ -15,20 +13,30 @@ const TransactionContext = createContext<TransactionContextData>({} as Transacti
 export function TransactionProvider({ children }: TransactionProviderProps) {
     const [transactions, setTransactions] = useState<Transaction[]>([]);
     const [dateSearch, setDateSearch] = useState(new Date());
+    const [typeSearch, setTypeSearch] = useState<string | undefined>(undefined)
+
 
     useEffect(() => {
-        loadTransactions(format(new Date(), 'yyyy-MM'));
+        loadTransactions(new Date());
     }, []);
 
-    async function loadTransactions(monthDate: string) {
-        api.get<Transaction[]>(`transactions/${monthDate}`).then(response => {
-            const transactionsResponse = response.data;
+    async function loadTransactions(date: Date, type?: string) {
+        const year = date.getFullYear();
+        const month = date.getMonth();
 
-            const transactionFormated = formatValues(transactionsResponse);
+        setTypeSearch(type)
 
-            setTransactions(transactionFormated);
-            setDateSearch(parseISO(monthDate));
+        api.get<Transaction[]>(`transactions/year/${year}/month/${month}`, {
+            params: { type }
         })
+            .then(response => {
+                const transactionsResponse = response.data;
+
+                const transactionFormated = formatValues(transactionsResponse);
+                setTransactions(transactionFormated);
+
+                setDateSearch(new Date(year, month));
+            })
     }
 
     async function createTransaction(transactionCreate: TransactionCreate) {
@@ -74,7 +82,14 @@ export function TransactionProvider({ children }: TransactionProviderProps) {
     }
 
     return (
-        <TransactionContext.Provider value={{ transactions, dateSearch, loadTransactions, createTransaction, deleteTransaction }}>
+        <TransactionContext.Provider value={{
+            transactions,
+            dateSearch,
+            typeSearch,
+            loadTransactions,
+            createTransaction,
+            deleteTransaction
+        }}>
             {children}
         </TransactionContext.Provider>
     );

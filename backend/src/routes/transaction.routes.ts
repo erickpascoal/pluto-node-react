@@ -11,7 +11,7 @@ class TransactionRouter {
   public routes() {
     const router = Router();
 
-    router.get('/:dateMonth', this.findAll)
+    router.get('/year/:year/month/:month', this.findAll)
     router.post('/', this.create)
     router.delete('/:id', this.delete)
 
@@ -20,11 +20,18 @@ class TransactionRouter {
 
   private async findAll(request: Request, response: Response) {
 
-    const { dateMonth } = request.params;
+    const { year, month } = request.params;
+
+    const { type } = request.query;
+
+    console.log('type', type);
+
 
     const service = new FindAllTransactionsService();
 
-    const transactions = await service.execute({ dateMonth: parseISO(dateMonth) });
+    const date = new Date(+year, +month)
+
+    const transactions = await service.execute({ date: date, type: <any>type });
 
     const transactionsDTOs = transactions.map(transaction => new TransactionDTO(transaction));
 

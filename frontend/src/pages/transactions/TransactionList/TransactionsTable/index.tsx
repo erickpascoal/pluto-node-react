@@ -1,10 +1,16 @@
 import { Transaction } from "../../../../hooks/useTransactions/types/Transacion";
 import { useTransaction } from "../../../../hooks/useTransactions";
-import { Container, Filter } from "./styles";
+import { Container, Filter, FilterItem } from "./styles";
 
 export function TransactionsTable() {
 
-    const { transactions, deleteTransaction } = useTransaction();
+    const {
+        transactions,
+        loadTransactions,
+        deleteTransaction,
+        dateSearch,
+        typeSearch,
+    } = useTransaction();
 
     async function handleDeleteTransaction(transaction: Transaction) {
         const confirmValue = window.confirm(`Deseja mesmo deletar a transação "${transaction.title}" ?`);
@@ -14,16 +20,26 @@ export function TransactionsTable() {
         }
     }
 
+
     return (
         <Container>
-            {transactions.length > 0 &&
-                <Filter>
-                    <li className="active">Todos</li>
-                    <li>Gasto</li>
-                    <li>Recebido</li>
-                </Filter>
+            <Filter>
+                <FilterItem isActive={!typeSearch}
+                    onClick={() => loadTransactions(dateSearch)}
+                >
+                    Todos
+                    </FilterItem>
+                <FilterItem isActive={typeSearch === 'deposit'}
+                    onClick={() => loadTransactions(dateSearch, 'deposit')}
+                >
+                    Entradas
+                    </FilterItem>
+                <FilterItem isActive={typeSearch === 'withdraw'}
+                    onClick={() => loadTransactions(dateSearch, 'withdraw')}
+                >Saídas
+                    </FilterItem>
+            </Filter>
 
-            }
             <table>
                 <tbody>
                     {transactions.map(transaction => (

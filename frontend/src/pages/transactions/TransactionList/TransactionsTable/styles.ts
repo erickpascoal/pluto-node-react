@@ -1,78 +1,78 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
 export const Container = styled.div`
-    margin-top: 6.4rem;
-    
-    table {
-        width: 100%;
-        border-spacing: 0 1.6rem;
+	margin-top: 6.4rem;
 
-        tbody tr {
-            transition: filter 0.2s;
+	table {
+		width: 100%;
+		border-spacing: 0 1.6rem;
 
-            &:hover {
-                filter: brightness(1.5)
-            }
-        }
+		tbody tr {
+			transition: filter 0.2s;
 
-        td {
-            padding: 2.4rem 3.2rem;
-            border: 0;
-            background: rgba(46, 53, 88, 0.3);
-            color: var(--text-body);
-            text-align: center;
+			&:hover {
+					filter: brightness(1.5)
+			}
+		}
 
-            &:first-child {
-                text-align: left;
-                color: #FFF;
-                border-top-left-radius: 0.8rem;
-                border-bottom-left-radius: 0.8rem;
-            }
+		td {
+				padding: 2.4rem 3.2rem;
+				border: 0;
+				background: rgba(46, 53, 88, 0.3);
+				color: var(--text-body);
+				text-align: center;
 
-            &:last-child {
-                border-top-right-radius: 0.8rem;
-                border-bottom-right-radius: 0.8rem;
-            }
+				&:first-child {
+						text-align: left;
+						color: #FFF;
+						border-top-left-radius: 0.8rem;
+						border-bottom-left-radius: 0.8rem;
+				}
 
-
-            &.deposit {
-                color: var(--green)
-            }
-
-            &.withdraw {
-                color: var(--red)
-            }
-
-            button {
-                border: 0;
-                color: #fff;
-                font-size: 1.6rem;
-                padding: 0.8rem 1.6rem;
-                border-radius: 0.4rem;
-                background: #32395E;
-
-                transition: background-color 0.2s;
-
-                &:hover {
-                    filter: brightness(0.8)
-                }
-
-                & + button {
-                    margin-left: 0.5rem;
-                }
+				&:last-child {
+						border-top-right-radius: 0.8rem;
+						border-bottom-right-radius: 0.8rem;
+				}
 
 
-                &.delete:hover {
-                    background-color: var(--red)
-                }
+				&.deposit {
+						color: var(--green)
+				}
 
-                &.edit:hover {
-                    background-color: #5FB2FF;
-                }
+				&.withdraw {
+						color: var(--red)
+				}
 
-            }
-        }
-    }
+				button {
+						border: 0;
+						color: #fff;
+						font-size: 1.6rem;
+						padding: 0.8rem 1.6rem;
+						border-radius: 0.4rem;
+						background: #32395E;
+
+						transition: background-color 0.2s;
+
+						&:hover {
+								filter: brightness(0.8)
+						}
+
+						& + button {
+								margin-left: 0.5rem;
+						}
+
+
+						&.delete:hover {
+								background-color: var(--red)
+						}
+
+						&.edit:hover {
+								background-color: #5FB2FF;
+						}
+
+				}
+			}
+	}
 `;
 
 export const Filter = styled.ul`
@@ -80,35 +80,39 @@ export const Filter = styled.ul`
   
 	display: flex;
 	justify-content: flex-end;
+`;
 
-	li {
-		cursor: pointer;
-		padding: 0 0.8rem;
-		font-size: 1.6rem;
-		font-weight: 600;
+interface FilterItemProps {
+	isActive: boolean
+}
 
-        transition: background-color 0.2s;
+export const FilterItem = styled.li<FilterItemProps>`
+	cursor: pointer;
+	padding: 0 0.8rem;
+	font-size: 1.6rem;
+	font-weight: 600;
 
-		& + li {
-			margin-left:  2.4rem;
-		}
+	transition: background-color 0.2s;
 
-		&:hover {
-			 background-color: #32395E;
-			 padding: 0 0.8rem;
-			 border-top-left-radius: 0.8rem;
-			 border-top-right-radius: 0.8rem;
-		}
-
-		&.active {
-			 color: #fff;
-			 background-color: #32395E;
-			 padding: 0 0.8rem;
-			 border-top-left-radius: 0.8rem;
-			 border-top-right-radius: 0.8rem;
-			 border-bottom: 2px  #1288E8 solid;
-		}
+	& + li {
+		margin-left:  2.4rem;
 	}
 
+	&:hover {
+		background-color: #32395E;
+		padding: 0 0.8rem;
+		border-top-left-radius: 0.8rem;
+		border-top-right-radius: 0.8rem;
+	}
 
+	${(props) => props.isActive && css`
+		color: #fff;
+		background-color: #32395E;
+		padding: 0 0.8rem;
+		border-top-left-radius: 0.8rem;
+		border-top-right-radius: 0.8rem;
+		border-bottom: 2px  #1288E8 solid;
+	`}
+	
 `;
+
