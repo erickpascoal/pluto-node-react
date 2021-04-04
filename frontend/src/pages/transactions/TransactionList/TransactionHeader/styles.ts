@@ -9,7 +9,7 @@ export const Container = styled.div`
 
 	span {
 		font-size: 1.8rem;
-		color: #fff;
+		color: var(--text-title);
 		font-weight: 600;
 	}
 
@@ -20,7 +20,7 @@ export const Container = styled.div`
 		color: #fff;
 		font-size: 1.6rem;
 		font-weight: 600;
-		background-color: #5FB2FF ;
+		background-color: var(--blue-light) ;
 		border: 0;
 
 		transition: filter 0.2s;
@@ -33,12 +33,12 @@ export const Container = styled.div`
 `;
 
 export const Calendar = styled.div`
-	background-color: #32395E;
+	background-color: var(--gray-dark);
 	border-radius: 0.8rem;
 
 	button {
 		padding: 0 1.6rem; 
-		background-color: #32395E;
+		background-color: var(--gray-dark);
 		color: #fff;
 		border: 0;
 		font-size: 1.6rem;
@@ -48,7 +48,7 @@ export const Calendar = styled.div`
 	input {
 		padding: 0.8rem;
 		color: #fff;
-		background-color: #32395E;
+		background-color: var(--gray-dark);
 		border: 0;
 		font-size: 1.6rem;
 		text-align: center;

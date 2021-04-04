@@ -8,6 +8,8 @@ import outcomeImg from '../../../../assets/images/outcome.svg'
 
 import { Form, TransactionTypeContainer, RadioBox } from './styles';
 import { useTransaction } from '../../../../hooks/useTransactions';
+import { useForm } from 'react-hook-form';
+import { Input } from '../../../../components/Input'
 
 interface TransactionFormModalProps {
     isOpen: boolean;
@@ -18,18 +20,20 @@ Modal.setAppElement('#root');
 
 export function TransactionFormModal({ isOpen, onRequestClose }: TransactionFormModalProps) {
 
-    const { createTransaction } = useTransaction();
+    const { createTransaction, dateSearch } = useTransaction();
 
-    const [title, setTitle] = useState('');
-    const [amount, setAmount] = useState(0);
-    const [type, setType] = useState('deposit');
-    const [category, setCategory] = useState('');
-    const [date, setDate] = useState(format(new Date(), 'yyyy-MM-dd'));
-    const [installment, setInstallment] = useState(1);
+    const { register, handleSubmit, watch, formState: { errors } } = useForm();
 
-    async function handleCreateNewTransaction(event: FormEvent) {
-        event.preventDefault();
+    // const [type, setType] = useState('deposit');
+    // const [date, setDate] = useState(format(new Date(), 'yyyy-MM-dd'));
+    // const [installment, setInstallment] = useState(1);
 
+    async function onSubmit({ title, amount, type, category, date, installment }: any) {
+        // event.preventDefault();
+
+        console.log('title, ', title);
+
+        return;
         await createTransaction({
             title,
             amount,
@@ -39,61 +43,68 @@ export function TransactionFormModal({ isOpen, onRequestClose }: TransactionForm
             installment
         });
 
-        clearForm();
-        onRequestClose();
+        // clearForm();
+        handeCloseModal();
     }
 
-    function clearForm() {
-        setTitle('');
-        setAmount(0);
-        setCategory('');
-        setType('deposit');
+    function handeCloseModal() {
+        onRequestClose();
     }
 
     return (
         <Modal
             isOpen={isOpen}
-            onRequestClose={onRequestClose}
+            onRequestClose={handeCloseModal}
             overlayClassName="react-modal-overlay"
             className="react-modal-content"
         >
-            <button onClick={onRequestClose} className="react-modal-close">
+            <button onClick={handeCloseModal} className="react-modal-close">
                 <img src={closeImg} alt="Fechar modal" />
             </button>
 
-            <Form onSubmit={handleCreateNewTransaction} >
+            <Form onSubmit={handleSubmit(onSubmit)} >
                 <h2>Cadastrar Transação</h2>
 
-                <input
-                    placeholder="Título"
-                    onChange={(event) => setTitle(event.target.value)}
+                <Input
+                    label="Título"
+                    error={errors.title}
+                    register={register('title', { required: true })}
                 />
 
-                <input
+                <Input
+                    label="Valor"
                     type="number"
-                    placeholder="Valor"
-                    onChange={(event) => setAmount(Number(event.target.value))}
+                    error={errors.amount}
+                    register={register('amount', { required: true })}
                 />
 
-                <input
-                    placeholder="Parcelas"
-                    type="number"
-                    value={installment}
-                    onChange={(event) => setInstallment(Number(event.target.value))}
+                <Input
+                    label="Categoria"
+                    error={errors.category}
+                    register={register('category', { required: true })}
                 />
 
-                <input
-                    placeholder="Categoria"
-                    onChange={(event) => setCategory(event.target.value)}
-                />
+                <div className="row-2" >
+                    <Input
+                        label="Parcelas"
+                        type="number"
+                        defaultValue={1}
+                        error={errors.installment}
+                        register={register('installment', { required: true })}
+                    />
 
-                <input
-                    placeholder="Data"
-                    type="date"
-                    value={date}
-                    onChange={(event) => setDate(event.target.value)}
-                />
+                    <Input
+                        label="Data"
+                        error={errors.date}
+                        type="date"
+                        defaultValue={format(dateSearch, 'yyyy-MM-dd')}
+                        register={register('date', { required: true })}
+                    />
+                </div>
+                {/* 
 
+
+                {/* 
                 <TransactionTypeContainer>
                     <RadioBox
                         type="button"
@@ -114,7 +125,7 @@ export function TransactionFormModal({ isOpen, onRequestClose }: TransactionForm
                         <img src={outcomeImg} alt="Saída" />
                         <span>Saída</span>
                     </RadioBox>
-                </TransactionTypeContainer>
+                </TransactionTypeContainer> */}
 
                 <button type="submit"> Cadastrar</button>
             </Form>

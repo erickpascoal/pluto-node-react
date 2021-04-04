@@ -25,6 +25,8 @@ export function TransactionProvider({ children }: TransactionProviderProps) {
         const month = date.getMonth();
 
         setTypeSearch(type)
+        setDateSearch(date);
+
 
         api.get<Transaction[]>(`transactions/year/${year}/month/${month}`, {
             params: { type }
@@ -34,8 +36,6 @@ export function TransactionProvider({ children }: TransactionProviderProps) {
 
                 const transactionFormated = formatValues(transactionsResponse);
                 setTransactions(transactionFormated);
-
-                setDateSearch(new Date(year, month));
             })
     }
 

@@ -49,7 +49,7 @@ export const Container = styled.div`
 						font-size: 1.6rem;
 						padding: 0.8rem 1.6rem;
 						border-radius: 0.4rem;
-						background: #32395E;
+						background: var(--gray-dark);
 
 						transition: background-color 0.2s;
 
@@ -99,7 +99,7 @@ export const FilterItem = styled.li<FilterItemProps>`
 	}
 
 	&:hover {
-		background-color: #32395E;
+		background-color: var(--gray-dark);
 		padding: 0 0.8rem;
 		border-top-left-radius: 0.8rem;
 		border-top-right-radius: 0.8rem;
@@ -107,7 +107,7 @@ export const FilterItem = styled.li<FilterItemProps>`
 
 	${(props) => props.isActive && css`
 		color: #fff;
-		background-color: #32395E;
+		background-color: var(--gray-dark);
 		padding: 0 0.8rem;
 		border-top-left-radius: 0.8rem;
 		border-top-right-radius: 0.8rem;

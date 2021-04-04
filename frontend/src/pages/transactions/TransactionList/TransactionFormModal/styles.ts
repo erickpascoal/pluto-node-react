@@ -9,26 +9,6 @@ export const Form = styled.form`
     margin-bottom: 3.2rem;
   }
 
-  input {
-    width: 100%;
-    padding: 0 2.4rem;
-    height: 6.4rem;
-    border-radius: 0.4rem;
-
-    border: 1px solid #d7d7d7;
-    background: #e7e9ee;
-
-    font-weight: 400;
-    font-size: 1.6rem;
-
-    &::placeholder {
-        color: var(--text-body);
-    }
-
-    & + input {
-        margin-top: 1.6rem;
-    }
-  }
   
  > button {
     width: 100%;
@@ -71,12 +51,13 @@ const colors = {
 
 export const RadioBox = styled.button<RadioBoxProps>`
     height: 6.4rem;
-    border: 1px solid #d7d7d7;
+    border: 0;
     border-radius: 0.4rem;
 
+    background: var(--blue-medium);
+
     background: ${(props) => props.isActive
-    ? transparentize(0.8, colors[props.activeColor]) :
-    'transparent'};
+    && transparentize(0.2, colors[props.activeColor])};
 
     display: flex;
     justify-content: center;
