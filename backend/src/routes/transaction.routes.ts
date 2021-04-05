@@ -24,9 +24,6 @@ class TransactionRouter {
 
     const { type } = request.query;
 
-    console.log('type', type);
-
-
     const service = new FindAllTransactionsService();
 
     const date = new Date(+year, +month)
@@ -43,7 +40,7 @@ class TransactionRouter {
 
     const service = new CreateTransactionService();
 
-    const transactionCreated = await service.execute({
+    const transactions = await service.execute({
       title,
       type,
       amount,
@@ -52,7 +49,9 @@ class TransactionRouter {
       installment
     });
 
-    return response.status(201).json(transactionCreated)
+    const transactionsDTOs = transactions.map(transaction => new TransactionDTO(transaction));
+
+    return response.status(200).json(transactionsDTOs)
   }
 
   private async delete(request: Request, response: Response) {

@@ -13,15 +13,8 @@ export default class FindAllTransactionsService {
 
     const repository = getRepository(Transaction);
 
-    console.log('date', date);
-
-
     const startDate = format(date, 'yyyy-MM-dd')
     const endDate = format(endOfMonth(date), 'yyyy-MM-dd')
-
-    console.log('startDate', startDate);
-    console.log('endDate', endDate);
-
 
     const transactions = await repository.createQueryBuilder('transaction')
       .where(`transaction.date_payment >= '${startDate}'`)

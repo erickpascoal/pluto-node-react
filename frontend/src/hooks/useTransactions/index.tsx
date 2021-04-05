@@ -45,6 +45,9 @@ export function TransactionProvider({ children }: TransactionProviderProps) {
 
         const newTransactions = response.data;
 
+        console.log('response.data', response.data);
+
+
         newTransactions.forEach(transaction => {
             const datePayment = new Date(transaction.datePayment);
 
@@ -53,7 +56,7 @@ export function TransactionProvider({ children }: TransactionProviderProps) {
                 datePayment.getMonth() === dateSearch.getMonth()
             ) {
                 const [transactionFormated] = formatValues([transaction]);
-                setTransactions([...transactions, transactionFormated])
+                setTransactions([...transactions, transactionFormated]);
             }
         });
     }
